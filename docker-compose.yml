@@ -1,0 +1,18 @@
+version: "3.2"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./dockerfiles/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./dockerfiles/nginx/includes:/etc/nginx/includes
+      - ./docker-logs/nginx:/var/log/nginx
+  node:
+    image: node:latest
+    working_dir: /home/node/app
+    volumes:
+      - ./api:/home/node/app
+    command: npm run start
